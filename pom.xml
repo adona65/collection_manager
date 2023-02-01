@@ -21,17 +21,24 @@
 	</properties>
 	
 	<dependencies>
-		<!-- 
-		TODO : Commented temporarily for allowing application to works whitout further configurations. Indeed, trying to launch application 
-		without datasource's' configuration would throw following error :
-			* Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
-			* Reason: Failed to determine a suitable driver class
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		-->
+		
+		<dependency>
+	        <groupId>org.xerial</groupId>
+	        <artifactId>sqlite-jdbc</artifactId>
+	        <version>3.39.3.0</version>
+    	</dependency>
+		
+		<!-- Contains dialect allowing SQLite to work with Hibernate. -->
+		<dependency>
+		    <groupId>org.hibernate.orm</groupId>
+		    <artifactId>hibernate-community-dialects</artifactId>
+		    <version>6.1.6.Final</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

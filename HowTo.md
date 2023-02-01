@@ -17,3 +17,6 @@ The goal of this document is explaining various informations about this project.
 
 #### Conveniently launch application for developments (for Windows)
 Launch <span style="color: green;">*app-launch-dev.bat*</span> script stored inside project's root directory. It will open a command prompt  executing launch of the back-end part of the application. It will contain logs from Spring.
+
+#### Working with SQLite
+SQLite was chosen because it's a lite-easy-to-use database provider. The fastest way to create an SQLite's database is to use the SQLite Studio tool.
