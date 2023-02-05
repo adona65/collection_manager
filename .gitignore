@@ -102,3 +102,4 @@ node/
 .gitignore.bak
 angular.json.bak
 package.json.bak
+collection_manager.db

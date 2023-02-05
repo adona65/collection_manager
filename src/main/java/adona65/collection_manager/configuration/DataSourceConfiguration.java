@@ -20,7 +20,7 @@ public class DataSourceConfiguration {
 	Environment env;
 	
 	/**
-	 * Tell the application that the datasource will be configured database. Configuration are taken into "application.properties" file.
+	 * Tell the application that the datasource will be configured database. Configurations are taken into "application.properties" file.
 	 */
 	@Bean
 	public DataSource dataSource() {

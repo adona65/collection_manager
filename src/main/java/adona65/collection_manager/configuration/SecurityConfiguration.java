@@ -1,10 +1,14 @@
 package adona65.collection_manager.configuration;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -16,6 +20,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
 
+	@Autowired
+	private DataSource dataSource;
+	
 	private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 	
 	/**
@@ -32,18 +39,27 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests(requests -> requests
 				// Specify that requests on given services' pattern + HTTP methods may be called by anyone.
 				// TODO : specify services url in a .yml file, not anymore hardcoded.
-				.requestMatchers(HttpMethod.POST, "/insertHelloWorld").permitAll()
-				.requestMatchers(HttpMethod.GET, "/public", "/getHelloWorld/{id}", "/generate_dummy_exception").permitAll()
+				.requestMatchers(HttpMethod.POST, "/insertHelloWorld", "/register").permitAll()
+				.requestMatchers(HttpMethod.GET, "/fake").permitAll()
 				// Specify that requests on given services' pattern + HTTP methods may be called by any authenticated user.
-				.requestMatchers(HttpMethod.GET, "/private").authenticated()
+				.requestMatchers(HttpMethod.GET, "/principal").authenticated()
 				// Specify that any other requests are not allowed by anyone.
 				.anyRequest().denyAll())
 			.httpBasic()
+			.and().headers()
+				.frameOptions()
+				.sameOrigin()
 			// TODO : Put only for allowing hello world tests using postman. To remove quickly.
 			.and().csrf().disable();
 		
 		logger.info("Spring security's configurations finished.");
 		
 		return http.build();
+	}
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication()
+			.dataSource(dataSource);
 	}
 }

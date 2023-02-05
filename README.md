@@ -8,7 +8,7 @@ The goal of this project is to practice various concepts and technologies during
 2. Spring security
 
 #### About security of the application
-Note that for the moment, the application won't be well secured. Communication with Spring's services will be performed with HTTP protocol using Basic Auth, and users' password will be stored in database in an unencrypted way.
+Note that for the moment, the application won't be well secured. For example communication with Spring's services will be performed with HTTP protocol using Basic Auth, or no strong password will be asked to users.
 
 Concerning database, SQLite will be used as it is an easy-to-use database provider, but without a system of credentials to access it, the data won't be protected. Using another more production-base database would be easy by changing configuration of the application. 
 
