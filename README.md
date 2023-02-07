@@ -3,6 +3,9 @@ The goal of this project is to practice various concepts and technologies during
 
 ## Technologies and concepts used :
 
+#### Front-End
+1. Angular
+
 #### Back-end
 1. Spring boot
 2. Spring security
