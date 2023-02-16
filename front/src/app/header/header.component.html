@@ -1,0 +1,13 @@
+<!-- Navigation menu displayed atop the application. -->
+<div>
+    <!-- Displayed when not connected. -->
+    <div [hidden]="observableIsLogged$">
+        You are not connected.
+        <a routerLinkActive="active" routerLink="/home">Connection</a>
+    </div>
+    <!-- Displayed when user is logged in. -->
+    <div [hidden]="!observableIsLogged$">
+        Welcome {{observableUser$.username}} !
+        <a (click)="logout()">Logout</a>
+    </div>
+</div>
