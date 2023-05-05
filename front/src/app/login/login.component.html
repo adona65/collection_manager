@@ -1,14 +1,21 @@
 <!-- Connection page. -->
+
+<!-- TODO : Manage this in dedicated component. Display error message when login failed.-->
+<div [hidden]="!displayError">
+	{{errorMessage}}
+	<br/><br/>
+</div>
+<!-- Form for connection. -->
 <form role="form" (submit)="login()">
     <!-- Input for user name. -->
 	<div>
 		<label for="username">Username:</label> 
-        <input type="text" id="username" name="username" [(ngModel)]="user.username"/>
+        <input type="text" id="username" name="username" [(ngModel)]="observableUser$.username"/>
 	</div>
     <!-- Input for password. -->
 	<div>
 		<label for="password">Password:</label>
-        <input type="password" id="password" name="password" [(ngModel)]="user.password"/>
+        <input type="password" id="password" name="password" [(ngModel)]="observableUser$.password"/>
 	</div>
     <!-- Button submitting login (call form's Angular event handler (submit)="login()"). -->
 	<button type="submit">Connection</button>

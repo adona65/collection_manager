@@ -14,14 +14,37 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent {
 
-  user: IUser = {username:'', password:''};
+  // TODO : properly manage error messages for whole application, as we manage header in dedicated component.
+  errorMessage:string = "";
+  displayError:boolean = false;
+
+  observableUser$:IUser  = {username:'', password:''};
+  observableIsLogged$:boolean = false;
 
   constructor(private _loginSvc: LoginService, private router: Router) {}
 
-  login() {
-    this._loginSvc.logIn(this.user);
+  ngOnInit() {
+    this._loginSvc.observableUser$.subscribe(user => this.observableUser$ = user);
+    this._loginSvc.observableIsLogged$.subscribe(isLogged => this.observableIsLogged$ = isLogged);
+  }
 
-    this.router.navigateByUrl('user-main');
+  // Todo : Manage logg-in process with a method taking route as parameter directly inside _loginSvc
+  login() {
+    this._loginSvc.logIn(this.observableUser$, () => {
+      if(this.observableIsLogged$) {
+        console.log("Successfully logged in.");
+
+        this.displayError = false;
+        this.errorMessage = "";
+
+        this.router.navigateByUrl('user-main');
+      } else {
+        console.log("Failed to log in.");
+
+        this.displayError = true;
+        this.errorMessage = "An error happened during connection. Please try again.";
+      }
+    });
   }
 
 }

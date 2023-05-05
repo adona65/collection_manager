@@ -35,14 +35,18 @@ public class SecurityConfiguration {
 		logger.info("Will perform all Spring security's configurations.");
 		
 		http
+			// Allow services calls from CORS. To be used alongside with "@CrossOrigin(origins="http://localhost:4200")"
+			// annotation on services controllers.
+			.cors()
+			.and()
 			// Beware : order of request matchers is important.
 			.authorizeHttpRequests(requests -> requests
 				// Specify that requests on given services' pattern + HTTP methods may be called by anyone.
 				// TODO : specify services url in a .yml file, not anymore hardcoded.
-				.requestMatchers(HttpMethod.POST, "/insertHelloWorld", "/register").permitAll()
-				.requestMatchers(HttpMethod.GET, "/fake").permitAll()
+				.requestMatchers(HttpMethod.POST, "/register").permitAll()
+				.requestMatchers(HttpMethod.GET, "/helloworld").permitAll()
 				// Specify that requests on given services' pattern + HTTP methods may be called by any authenticated user.
-				.requestMatchers(HttpMethod.GET, "/principal").authenticated()
+				.requestMatchers(HttpMethod.GET, "/principal", "/user").authenticated()
 				// Specify that any other requests are not allowed by anyone.
 				.anyRequest().denyAll())
 			.httpBasic()

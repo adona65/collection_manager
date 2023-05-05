@@ -9,4 +9,4 @@ import adona65.collection_manager.entity.AuthoritiesEntity;
  * 
  * @author adona65
  */
-public interface AuthoritiesRepository extends JpaRepository<AuthoritiesEntity, Long> {}
+public interface AuthoritiesRepository extends JpaRepository<AuthoritiesEntity, String> {}
